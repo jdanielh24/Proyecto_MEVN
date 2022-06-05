@@ -24,7 +24,8 @@ mongoose.connect(process.env.DB_URI, {
     .catch(err => console.log(err));
 
 // routes prefix
-app.use('/api/post', require('./routes/routes'));
+app.use('/api/post', require('./routes/post.route'));
+app.use('/api/user', require('./routes/user.route'));
 
 // start server
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));

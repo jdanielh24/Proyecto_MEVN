@@ -40,7 +40,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <v-btn color="info" plain :to="{ name: 'home' }">Vue-Interest</v-btn>
+        <v-btn color="info" plain :to="{ name: 'home' }">MyTeacher</v-btn>
         <!-- Vue-Interest -->
       </v-toolbar-title>
     </v-app-bar>
