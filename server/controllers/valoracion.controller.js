@@ -1,82 +1,25 @@
-const User = require('../models/valoracion.model');
+const Valoracion = require('../models/valoracion.model');
 
-module.exports = class PostController {
-    // Obtener todos los posts
-    // static async getAllPosts(req, res) {
-    //     try {
-    //         const posts = await Post.find();
-    //         res.status(200).json(posts);
-    //     } catch (err) {
-    //         res.send(404).json({ message: err.message });
-    //     }
-    // }
+module.exports = class ValoracionController {
+    // Obtener todos las valoraciones
+    static async getAllValoraciones(req, res) {
+        try {
+            const valoraciones = await Valoracion.find();
+            res.status(200).json(valoraciones);
+        } catch (err) {
+            res.send(404).json({ message: err.message });
+        }
+    }
 
-    // // Obtener post por ID
-    // static async getPostByID(req, res) {
-    //     const id = req.params.id;
-    //     try {
-    //         const post = await Post.findById(id);
-    //         res.status(200).json(post);
-    //     } catch (err) {
-    //         res.status(404).json({ message: err.message });
-    //     }
-    // }
+    // crer una valoracion
+    static async createValoracion(req, res) {
+        const valoracion = req.body;
+        try {
+            await Valoracion.create(valoracion);
+            res.status(201).json({ message: 'Valoracion created succesfully'});
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+    }
 
-    // // crer un post
-    // static async createPost(req, res) {
-    //     const post = req.body;
-    //     const imagename = req.file.filename;
-    //     post.image = imagename;
-    //     try {
-    //         await Post.create(post);
-    //         res.status(201).json({ message: 'Post created succesfully' });
-    //     } catch (err) {
-    //         res.status(400).json({ message: err.message });
-    //     }
-    // }
-
-    // // actualizar un post
-    // static async updatePost(req, res) {
-    //     const id = req.params.id;
-    //     let new_image = '';
-    //     if (req.file) {
-    //         new_image = req.file.filename;
-    //         try {
-    //             fs.unlinkSync('./uploads/' + req.body.old_image)
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     } else {
-    //         new_image = req.body.old_image;
-    //     }
-        
-    //     const newPost = req.body;
-    //     newPost.image = new_image;
-
-    //     try {
-    //         await Post.findByIdAndUpdate(id, newPost);
-    //         res.status(200).json({ message: 'Post updated successfully!' });
-    //     } catch (err) {
-    //         res.status(404).json({ message: err.message });
-    //     }
-    // }
-
-    // // eliminar un post
-    // static async deletePost(req, res) {
-    //     const id = req.params.id;
-
-    //     try {
-    //         const result = await Post.findByIdAndDelete(id);
-    //         if (result.image != '') {
-    //             try {
-    //                 fs.unlinkSync('./uploads/' + result.image);
-    //             } catch (err) {
-    //                 console.log(err);
-    //             }
-    //         }
-    //         res.status(200).json({ message: 'Post deleted successfully!' });
-    //     } catch (err) {
-    //         res.status(404).json({ message: err.message });
-    //     }
-    // }
 }
