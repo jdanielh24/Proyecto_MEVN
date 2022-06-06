@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
 
+const jwt = require('jsonwebtoken');
+
 // Hash contraseña
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -42,10 +44,18 @@ module.exports = class UserController {
                 })
             }
 
+            //Generar token
+            const token = jwt.sign({
+                data: usuarioDB
+            }, 'secret', { expiresIn: 60 * 60 * 24 });
+
 			res.json({
                 usuarioDB, 
-                token: 'fuga'
+                token
             })
+
+            
+
 		} catch (err) {
 			res.status(400).json({ message: err.message });
 		}

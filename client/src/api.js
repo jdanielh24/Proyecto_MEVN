@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = '/api/post';
+const url = '/post';
 
 export default class API {
     // Obtener todos los posts

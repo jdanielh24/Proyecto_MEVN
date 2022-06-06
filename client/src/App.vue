@@ -19,11 +19,12 @@
       <v-list-item-group
         color="primary"
       >
-        <v-list-item
+        <v-list-item 
           v-for="(item, i) in items"
           :key="i"
           :to="item.link"
           link
+          
         >
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
@@ -32,7 +33,22 @@
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
       </v-list-item-group>
+
+
+      <v-list-item-group>
+        <v-list-item @click="cerrarSesion">
+          <v-list-item-icon>
+            <v-icon v-text="'mdi-logout'"></v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title v-text="'CerrarSesion'"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+      
     </v-list>
     </v-navigation-drawer>
 
@@ -41,6 +57,7 @@
 
       <v-toolbar-title>
         <v-btn color="info" plain :to="{ name: 'home' }">MyTeacher</v-btn>
+        
         <!-- Vue-Interest -->
       </v-toolbar-title>
     </v-app-bar>
@@ -52,6 +69,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
   export default {
     data: () => ({ 
       drawer: null,
@@ -61,6 +80,15 @@
         { title: 'About', icon: 'mdi-help-box', link: "/about" },
         
       ], 
-      }),
+    }),
+    methods: {
+      ...mapActions(['cerrarSesion', 'leerToken'])
+    },
+    computed:{
+      ...mapGetters(['estaActivo'])
+    },
+    created(){
+      this.leerToken();
+    }
   }
 </script>
