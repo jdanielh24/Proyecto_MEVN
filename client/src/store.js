@@ -28,11 +28,15 @@ export default new Vuex.Store({
         guardarUsuario({commit}, payload){
             localStorage.setItem('token', payload);
             commit('obtenerUsuario', payload);
+            window.location.reload();
         },
         cerrarSesion({commit}){
             commit('obtenerUsuario', '');
             localStorage.removeItem('token');
+            localStorage.removeItem('nombre');
+            localStorage.removeItem('email');
             router.push({name: 'login'});
+            window.location.reload();
         },
         leerToken({commit}){
             const token = localStorage.getItem('token');

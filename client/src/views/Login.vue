@@ -36,21 +36,15 @@
                     </v-col>
                     
                 </form>
-                <div v-if="mensaje != ''">
-                    <p>{{mensaje}}</p>
-                </div>
-            </center>
-            
-            
-        </v-container>
-
-        <v-container fill-height fluid>
-            <v-row align="center"
-                justify="center">
-                <v-col>
-                    
+                 <v-col cols="8" sm="6">
+                    <div v-if="mensaje != ''">
+                        <v-alert border="left" close-text="Close Alert" color="red accent-4" dark dismissible
+                            >
+                            {{ mensaje }}
+                        </v-alert>
+                    </div>
                 </v-col>
-            </v-row>
+            </center>
         </v-container>
     </div>
 </template>
@@ -74,11 +68,13 @@ export default {
                     console.log(res.data);
                     const token = res.data.token;
                     this.guardarUsuario(token);
+                    localStorage.setItem("nombre", res.data.usuarioDB.nombre);
+                    localStorage.setItem("email", res.data.usuarioDB.email);
                     // this.mensaje = '';
                 })
                 .catch(e => {
                     console.log(e.response);
-                    // this.mensaje = e.response.data.mensaje;
+                    this.mensaje = e.response.data.mensaje;
                 })
         }
     },

@@ -60,14 +60,4 @@ module.exports = class UserController {
 			res.status(400).json({ message: err.message });
 		}
 	}
-
-    /*async editarUsuario(req, res, next) {
-		try {
-			const result = await User.findByIdAndUpdate(req.auth, req.body)
-			res.status(200).json(result)
-		} catch (error) {
-			next(error)
-		}
-	}*/
-
 }

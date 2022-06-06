@@ -7,10 +7,10 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>
-            Equipo J
+                {{ nombre }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            Pila I MEVN
+            {{ email }}
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -70,9 +70,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
   export default {
-    data: () => ({ 
+    data: () => ({
+      nombre : localStorage.getItem("nombre"),
+      email : localStorage.getItem("email"), 
       drawer: null,
       items: [
         { title: 'Home', icon: 'mdi-home', link: "/" },
