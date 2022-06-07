@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col sm="10" class="pa-4" mx-auto>
         <v-card class="pa-2">
-          <v-img :src="`/${post.image}`"></v-img><br />
+          <v-img  :src="`/${post.image}`"></v-img><br />
           <v-row class="mt-1 mx-1"
             >&nbsp;&nbsp;&nbsp;<b class="blue--text"> Autor</b>&nbsp;
             <span>{{ autor }}</span>

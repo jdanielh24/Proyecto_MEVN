@@ -44,7 +44,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title v-text="'CerrarSesion'"></v-list-item-title>
+            <v-list-item-title v-text="'Cerrar sesion'"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -56,7 +56,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <v-btn color="info" plain :to="{ name: 'home' }">MyTeacher</v-btn>
+        <v-btn color="info" plain :to="{ name: 'home' }"> <b> <span class="blue--text">Mis</span><span class="black--text">Hoteles 🏨</span> </b> </v-btn>
         
         <!-- Vue-Interest -->
       </v-toolbar-title>
@@ -76,9 +76,9 @@ import { mapActions, mapGetters } from 'vuex';
       email : localStorage.getItem("email"), 
       drawer: null,
       items: [
-        { title: 'Home', icon: 'mdi-home', link: "/" },
-        { title: 'Add Post', icon: 'mdi-note-plus', link: "/add-post" },
-        { title: 'About', icon: 'mdi-help-box', link: "/about" },
+        { title: 'Inicio', icon: 'mdi-home', link: "/" },
+        { title: 'Publicar', icon: 'mdi-note-plus', link: "/add-post" },
+        { title: 'Acerca de', icon: 'mdi-help-box', link: "/about" },
         
       ], 
     }),
