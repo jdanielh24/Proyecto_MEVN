@@ -135,8 +135,8 @@ export default {
 
       valoracion: {
                     idUser: '', idPost: '', comentario: '', valoracion: ''
-                }
-      //comentarios: {}
+                },
+      comentarios: []
     };
   },
   async created() {
@@ -153,16 +153,19 @@ export default {
         console.log(e.response);
         //this.mensaje = e.response.data.mensaje;
       });
-
-   /* this.axios.get(`/valoracion/${this.post._id}`)
+    console.log("id: ", this.post._id)
+    this.axios.get(`/valoracion/${this.post._id}`)
                 .then(res => {
-                    console.log('--------------------------------')
-                    for (const key in res){
-                       console.log(key)
-                    }
+                    let todosComentarios = res.data;
+
+                    todosComentarios.forEach(element =>{
+                        this.comentarios.push(element)
+                    });
+
                 }).catch(e => {
+                    console.log('eror1')
                     console.log(e.response);
-                })*/
+                })
   },
   methods: {
     comentar() {
@@ -175,11 +178,11 @@ export default {
                 formData.append('valoracion', this.valoracion);*/
                 this.valoracion.idUser = this.idUser;
                 this.valoracion.idPost = this.post._id;
-                console.log(this.valoracion);
+                //console.log(this.valoracion);
                 this.axios.post('/valoracion/createVal', this.valoracion)
                 .then(res => {
                      //router.push({name: 'home'});
-                     //window.location.reload();
+                     window.location.reload();
                      swal("¡Comentario insertado!", "MESSI PECHO FRIO", "success");
                 }).catch(e => {
                     console.log(e.response);
