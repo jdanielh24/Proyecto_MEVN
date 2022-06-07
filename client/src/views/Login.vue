@@ -34,6 +34,8 @@
                             block
                         >ACCEDER</v-btn>
                     </v-col>
+
+                    <p>¿No tienes cuenta? <a href="/registrar-usuario"> Regístrate</a></p>
                     
                 </form>
                  <v-col cols="8" sm="6">
@@ -49,8 +51,10 @@
     </div>
 </template>
 
-<script>
+
+<script >
 import { mapActions } from "vuex";
+import swal from 'sweetalert';
 
 export default {
     data() {
@@ -66,6 +70,7 @@ export default {
             this.axios.post('/user/login', this.usuario)
                 .then(res => {
                     console.log(res.data);
+
                     const token = res.data.token;
                     this.guardarUsuario(token);
                     localStorage.setItem("nombre", res.data.usuarioDB.nombre);

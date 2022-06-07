@@ -102,8 +102,10 @@ export default {
                      console.log(res.data);
                      //this.mensaje = "Usuario registrado!";
                      router.push({name: 'home'});
+                     swal("¡Usuario registrado!", "Inicia sesión para acceder a todas las funcionalidades", "success");
                 }).catch(e => {
                     console.log(e.response);
+                    this.mensaje = "Error con el correo (inválido o ya registrado)";
                 })
             }
             else{
