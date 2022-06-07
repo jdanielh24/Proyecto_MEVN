@@ -49,57 +49,50 @@
         <v-container>
           <v-card-title>Comentarios</v-card-title>
 
-          <v-card class="pa-4">
-            <v-row class="pa-4">
-              <p>{{nombreUser}}</p>
-              &nbsp;&nbsp;
-              <stars-rating
-                v-model="rating"
-                :settings="settings"
-              ></stars-rating>
-            </v-row>
-            <p>este es mi comentario</p>
-          </v-card>
-          <br>
-          <v-card class="pa-4">
-            <v-row class="pa-4">
-              <p>{{nombreUser}}</p>
-              &nbsp;&nbsp;
-              <stars-rating
-                v-model="rating"
-                :settings="settings"
-              ></stars-rating>
-            </v-row>
-            <p>este es mi comentario</p>
-          </v-card>
+          <div>
+            <div v-for="item in comentarios">
+              <v-card class="pa-4">
+                <v-row class="pa-4">
+                  <p>{{ item.nombre }}</p>
+                  &nbsp;&nbsp;
+                  <stars-rating
+                    v-model="rating2"
+                    :settings="estrella2"
+                  ></stars-rating>
+                </v-row>
+                <p>{{ item.comentario }}</p>
+              </v-card>
+              <br />
+            </div>
+          </div>
 
-            <br>
-            <br>
-        
-         <form @submit.prevent="comentar">
-          <v-card class="pa-4">
-            <v-row class="pa-4">
-              <p>¿Qué te parece?</p>
-              &nbsp;&nbsp;
-              <stars-rating
-                v-model="valoracion.valoracion"
-                :settings="settings"
-              ></stars-rating>
-            </v-row>
-            <v-textarea
-              v-model="valoracion.comentario"
-              outlined
-              name="input-7-4"
-              label="Agrega un comenchairo"
-              value=""
-            ></v-textarea>
+          <br />
 
-            <v-btn color="primary" type="submit" elevation="2" large
-              >ENVIAR</v-btn
-            >
-          </v-card>
-         </form>
+            
 
+          <form @submit.prevent="comentar">
+            <v-card class="pa-4">
+              <v-row class="pa-4">
+                <p>¿Qué te parece?</p>
+                &nbsp;&nbsp;
+                <stars-rating
+                  v-model="valoracion.valoracion"
+                  :settings="settings"
+                ></stars-rating>
+              </v-row>
+              <v-textarea
+                v-model="valoracion.comentario"
+                outlined
+                name="input-7-4"
+                label="Agrega un comenchairo"
+                value=""
+              ></v-textarea>
+
+              <v-btn color="primary" type="submit" elevation="2" large
+                >ENVIAR</v-btn
+              >
+            </v-card>
+          </form>
         </v-container>
       </v-col>
     </v-row>
@@ -133,10 +126,28 @@ export default {
         viewBox: "0 0 100 100",
       },
 
+      estrella2: {
+        starsQuantity: 5,
+        stroke: "none",
+        strokeWidth: 0,
+        fill: "#DDD",
+        highlighted: "#FFDF12",
+        hover: "#FFED84",
+        size: 20,
+        readOnly: true,
+        rating: 3,
+        marginRight: 5,
+        d: "M50 0 l-15 35 -35 5 25 24 -6 35 31 -18 31 18 -6 -35 25 -24 -35 -5 -15 -35 z",
+        viewBox: "0 0 100 100",
+      },
+
       valoracion: {
-                    idUser: '', idPost: '', comentario: '', valoracion: ''
-                },
-      comentarios: []
+        idUser: "",
+        idPost: "",
+        comentario: "",
+        valoracion: "",
+      },
+      comentarios: [],
     };
   },
   async created() {
@@ -153,46 +164,66 @@ export default {
         console.log(e.response);
         //this.mensaje = e.response.data.mensaje;
       });
-    console.log("id: ", this.post._id)
-    this.axios.get(`/valoracion/${this.post._id}`)
-                .then(res => {
-                    let todosComentarios = res.data;
+    console.log("id: ", this.post._id);
+    this.axios
+      .get(`/valoracion/${this.post._id}`)
+      .then((res) => {
+        let todosComentarios = res.data;  
+        
+        console.log(todosComentarios)
+        
+        todosComentarios.forEach((element) => {
+          
 
-                    todosComentarios.forEach(element =>{
-                        this.comentarios.push(element)
-                    });
+            this.axios
+            .get(`/user/${element.idUser}`)
+            .then((res) => {
+                console.log('R:', res.data);
+            let nombreU = res.data.nombre;
+            element['nombre'] = nombreU;
+            this.comentarios.push(element);
+            })
+        .catch((e) => {
+            console.log(e.response);
+            //this.mensaje = e.response.data.mensaje;
+        });
 
-                }).catch(e => {
-                    console.log('eror1')
-                    console.log(e.response);
-                })
+
+        });
+      })
+      .catch((e) => {
+        console.log("eror1");
+        console.log(e.response);
+      });
   },
   methods: {
     comentar() {
-            
-            if(this.valoracion.comentario != '' && this.valoracion.valoracion != 0){
-                /*const formData = new FormData();
+      if (this.valoracion.comentario != "" && this.valoracion.valoracion != 0) {
+        /*const formData = new FormData();
                 formData.append('idUser', this.idUser);
                 formData.append('idPost', this.idPost);
                 formData.append('comentario', this.comentario);
                 formData.append('valoracion', this.valoracion);*/
-                this.valoracion.idUser = this.idUser;
-                this.valoracion.idPost = this.post._id;
-                //console.log(this.valoracion);
-                this.axios.post('/valoracion/createVal', this.valoracion)
-                .then(res => {
-                     //router.push({name: 'home'});
-                     window.location.reload();
-                     swal("¡Comentario insertado!", "MESSI PECHO FRIO", "success");
-                }).catch(e => {
-                    console.log(e.response);
-                })
-            }
-            else{
-                swal("Formulario incompleto", "Asegúrate de dar una valoración e ingresar un comentario y MESSI PECHO FRIO", "success");
-            }
-        }
-    , 
+        this.valoracion.idUser = this.idUser;
+        this.valoracion.idPost = this.post._id;
+        //console.log(this.valoracion);
+        this.axios
+          .post("/valoracion/createVal", this.valoracion)
+          .then((res) => {
+            this.$router.push({name: 'home'});
+            swal("¡Comentario insertado!", "MESSI PECHO FRIO", "success");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } else {
+        swal(
+          "Formulario incompleto",
+          "Asegúrate de dar una valoración e ingresar un comentario y MESSI PECHO FRIO",
+          "success"
+        );
+      }
+    },
     async removePost(id) {
       const response = await API.deletePost(id);
       this.$router.push({
