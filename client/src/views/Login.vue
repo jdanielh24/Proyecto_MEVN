@@ -54,7 +54,7 @@
 
 <script >
 import { mapActions } from "vuex";
-import swal from 'sweetalert';
+import API_USER from "../api_user";
 
 export default {
     data() {
@@ -65,23 +65,19 @@ export default {
     },
     methods: {
         ...mapActions(['guardarUsuario']),
-        login(){
-            //console.log(this.usuario);
-            this.axios.post('/user/login', this.usuario)
-                .then(res => {
-                    console.log(res.data);
-
-                    const token = res.data.token;
-                    this.guardarUsuario(token);
-                    localStorage.setItem("idUser", res.data.usuarioDB._id);
-                    localStorage.setItem("nombre", res.data.usuarioDB.nombre);
-                    localStorage.setItem("email", res.data.usuarioDB.email);
-                    // this.mensaje = '';
-                })
-                .catch(e => {
-                    console.log(e.response);
-                    this.mensaje = e.response.data.mensaje;
-                })
+        async login(){
+            try{
+                const res = await API_USER.login(this.usuario.email, this.usuario.password)
+                const token = res.token;
+            
+                this.guardarUsuario(token);
+                localStorage.setItem("idUser", res.usuarioDB._id);
+                localStorage.setItem("nombre", res.usuarioDB.nombre);
+                localStorage.setItem("email", res.usuarioDB.email);
+            } catch (error) {
+				this.mensaje = error.response.data.mensaje;
+			}
+            
         }
     },
 }

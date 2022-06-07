@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import swal from 'sweetalert';
 import router from './router/index'
 
 //Para decodificar el jwt

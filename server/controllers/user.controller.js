@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 module.exports = class UserController {
-    // crer un post
+    // crer un usuario
     static async registrarUsuario(req, res) {
         const user = {
             nombre: req.body.nombre,

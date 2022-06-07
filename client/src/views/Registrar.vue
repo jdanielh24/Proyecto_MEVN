@@ -80,7 +80,9 @@
 </template>
 
 <script>
-import router from '../router/index'
+import router from '../router/index';
+import API_USER from "../api_user";
+
 export default {
     data() {
         return {
@@ -91,22 +93,16 @@ export default {
             };
     },
     methods: {
-        registrar() {
+        async registrar() {
             if(this.usuario.password == this.usuario.password2){
-                //const formData = new FormData();
-                /*formData.append('nombre', this.usuario.nombre);
-                formData.append('email', this.usuario.email);
-                formData.append('password', this.usuario.password);*/
-                this.axios.post('/user/registrar-usuario', this.usuario)
-                .then(res => {
-                     console.log(res.data);
-                     //this.mensaje = "Usuario registrado!";
-                     router.push({name: 'home'});
-                     swal("¡Usuario registrado!", "Inicia sesión para acceder a todas las funcionalidades", "success");
-                }).catch(e => {
-                    console.log(e.response);
-                    this.mensaje = "Error con el correo (inválido o ya registrado)";
-                })
+                try{
+                    const res = await API_USER.registrar(this.usuario);
+                    router.push({name: 'home'}).catch(() => {});
+                    swal("¡Usuario registrado!", "Inicia sesión para acceder a todas las funcionalidades", "success");
+
+                } catch (error) {
+				    this.mensaje = "Error con el correo (inválido o ya registrado)";
+			    }
             }
             else{
                 this.mensaje = "Las contraseñas no coinciden";

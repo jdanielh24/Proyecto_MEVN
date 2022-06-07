@@ -36,7 +36,16 @@
           <v-card-text class="grey-text">
             <p>{{ post.content }}</p>
 
-            <stars-rating v-model="rating" :settings="settings"></stars-rating>
+            <v-rating
+											hover
+											length="5"
+											size="25"
+											:value="promedio_val"
+											readonly
+											dense
+											color="#FFED84"
+										>
+										</v-rating>
             <br />
             <p>{{ post.created }}</p>
           </v-card-text>
@@ -55,10 +64,16 @@
                 <v-row class="pa-4">
                   <p>{{ item.nombre }}</p>
                   &nbsp;&nbsp;
-                  <stars-rating
-                    v-model="rating2"
-                    :settings="estrella2"
-                  ></stars-rating>
+                  <v-rating
+											hover
+											length="5"
+											size="20"
+											:value="item.estrellas.rating"
+											readonly
+											dense
+											color="#FFED84"
+										>
+										</v-rating>
                 </v-row>
                 <p>{{ item.comentario }}</p>
               </v-card>
@@ -67,8 +82,6 @@
           </div>
 
           <br />
-
-            
 
           <form @submit.prevent="comentar">
             <v-card class="pa-4">
@@ -84,7 +97,7 @@
                 v-model="valoracion.comentario"
                 outlined
                 name="input-7-4"
-                label="Agrega un comenchairo"
+                label="Agrega un comentario"
                 value=""
               ></v-textarea>
 
@@ -101,6 +114,8 @@
 
 <script>
 import API from "../api";
+import API_VALORACION from "../api_valoracion";
+import API_USER from "../api_user";
 import StarsRating from "stars-rating-component-vue";
 
 export default {
@@ -120,25 +135,10 @@ export default {
         hover: "#FFED84",
         size: 20,
         readOnly: false,
-        rating: 0,
+        rating: 5,
         marginRight: 5,
         d: "M50 0 l-15 35 -35 5 25 24 -6 35 31 -18 31 18 -6 -35 25 -24 -35 -5 -15 -35 z",
-        viewBox: "0 0 100 100",
-      },
-
-      estrella2: {
-        starsQuantity: 5,
-        stroke: "none",
-        strokeWidth: 0,
-        fill: "#DDD",
-        highlighted: "#FFDF12",
-        hover: "#FFED84",
-        size: 20,
-        readOnly: true,
-        rating: 3,
-        marginRight: 5,
-        d: "M50 0 l-15 35 -35 5 25 24 -6 35 31 -18 31 18 -6 -35 25 -24 -35 -5 -15 -35 z",
-        viewBox: "0 0 100 100",
+        viewBox: "0 0 100 100"
       },
 
       valoracion: {
@@ -148,78 +148,64 @@ export default {
         valoracion: "",
       },
       comentarios: [],
+
+      promedio_val : 0
     };
   },
   async created() {
     const response = await API.getPostByID(this.$route.params.id);
     this.post = response;
-    this.axios
-      .get(`/user/${this.post.idUser}`)
-      .then((res) => {
-        console.log(res.data);
-        this.autor = res.data.nombre;
-        //console.log(autor);
-      })
-      .catch((e) => {
-        console.log(e.response);
-        //this.mensaje = e.response.data.mensaje;
-      });
-    console.log("id: ", this.post._id);
-    this.axios
-      .get(`/valoracion/${this.post._id}`)
-      .then((res) => {
-        let todosComentarios = res.data;  
-        
-        console.log(todosComentarios)
-        
-        todosComentarios.forEach((element) => {
-          
 
-            this.axios
-            .get(`/user/${element.idUser}`)
-            .then((res) => {
-                console.log('R:', res.data);
-            let nombreU = res.data.nombre;
-            element['nombre'] = nombreU;
-            this.comentarios.push(element);
-            })
-        .catch((e) => {
-            console.log(e.response);
-            //this.mensaje = e.response.data.mensaje;
-        });
+    const resAutor = await API_USER.getUserByID(this.post.idUser);
+    this.autor = resAutor.nombre;
 
+    const resVals = await API_VALORACION.getValoracionByID(this.post._id);
 
-        });
-      })
-      .catch((e) => {
-        console.log("eror1");
-        console.log(e.response);
-      });
+    let todosComentarios = resVals;
+
+    let suma_val = 0;
+
+      await todosComentarios.reduce(async (m, element) => {
+      const resAutorVal = await API_USER.getUserByID(element.idUser);
+
+      let nombreU = resAutorVal.nombre;
+      element["nombre"] = nombreU;
+
+      const estrella =  {
+        starsQuantity: 5,
+        stroke: "none",
+        strokeWidth: 0,
+        fill: "#DDD",
+        highlighted: "#FFDF12",
+        hover: "#FFED84",
+        size: 20,
+        readOnly: true,
+        rating: element.valoracion,
+        marginRight: 5,
+        d: "M50 0 l-15 35 -35 5 25 24 -6 35 31 -18 31 18 -6 -35 25 -24 -35 -5 -15 -35 z",
+        viewBox: "0 0 100 100"
+      }
+      element["estrellas"] = estrella;
+      this.comentarios.push(element);
+
+      suma_val += element.valoracion;
+    }, 0);
+    this.promedio_val = Math.round(suma_val / this.comentarios.length);
   },
   methods: {
-    comentar() {
+    async comentar() {
       if (this.valoracion.comentario != "" && this.valoracion.valoracion != 0) {
-        /*const formData = new FormData();
-                formData.append('idUser', this.idUser);
-                formData.append('idPost', this.idPost);
-                formData.append('comentario', this.comentario);
-                formData.append('valoracion', this.valoracion);*/
+        this.valoracion.valoracion = Math.ceil(this.valoracion.valoracion);
         this.valoracion.idUser = this.idUser;
         this.valoracion.idPost = this.post._id;
-        //console.log(this.valoracion);
-        this.axios
-          .post("/valoracion/createVal", this.valoracion)
-          .then((res) => {
-            this.$router.push({name: 'home'});
-            swal("¡Comentario insertado!", "MESSI PECHO FRIO", "success");
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+
+        const resVal = await API_VALORACION.addValoracion(this.valoracion);
+        this.$router.push({ name: "home" });
+        swal("Tu comentario ha sido insertado", "Revisa el post para verificar", "success");
       } else {
         swal(
           "Formulario incompleto",
-          "Asegúrate de dar una valoración e ingresar un comentario y MESSI PECHO FRIO",
+          "Asegúrate de dar una valoración e ingresar un comentario",
           "success"
         );
       }
