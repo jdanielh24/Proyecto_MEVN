@@ -22,4 +22,14 @@ module.exports = class ValoracionController {
         }
     }
 
+    static async getValoracionesById(req, res){
+        const id = req.params.id;
+        try {
+            const valoracion = await Valoracion.findById(id);
+            res.status(200).json(valoracion);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
 }

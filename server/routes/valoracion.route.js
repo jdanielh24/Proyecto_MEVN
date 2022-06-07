@@ -4,5 +4,6 @@ const valoracionController = require('../controllers/valoracion.controller');
 
 router.get('/', valoracionController.getAllValoraciones);
 router.post('/createVal', valoracionController.createValoracion);
+router.get('/valoraciones:id', valoracionController.getValoracionesById);
 
 module.exports = router;

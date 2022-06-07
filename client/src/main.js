@@ -8,6 +8,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, axios)
+//Vue.component('star-rating', VueStarRating.default)
+
+//Vue.component('star-rating', StarRating);
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 

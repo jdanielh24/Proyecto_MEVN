@@ -93,10 +93,10 @@ export default {
     methods: {
         registrar() {
             if(this.usuario.password == this.usuario.password2){
-                const formData = new FormData();
-                formData.append('nombre', this.usuario.nombre);
+                //const formData = new FormData();
+                /*formData.append('nombre', this.usuario.nombre);
                 formData.append('email', this.usuario.email);
-                formData.append('password', this.usuario.password);
+                formData.append('password', this.usuario.password);*/
                 this.axios.post('/user/registrar-usuario', this.usuario)
                 .then(res => {
                      console.log(res.data);

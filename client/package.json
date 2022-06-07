@@ -10,10 +10,12 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "jwt-decode": "^3.1.2",
+    "stars-rating-component-vue": "^1.2.0",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.4.17",
     "vue": "^2.6.14",
     "vue-axios": "^3.4.1",
+    "vue-dynamic-star-rating": "^1.0.8",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.0",
     "vuex": "^3.0.0"
