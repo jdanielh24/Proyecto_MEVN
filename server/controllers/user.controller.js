@@ -24,6 +24,16 @@ module.exports = class UserController {
         }
     }
 
+    static async getUsuario(req, res){
+        const id = req.params.id;
+        try {
+            const user = await User.findById(id);
+            res.status(200).json(user);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
     static async login(req, res, next) {
 		const body = req.body;
 

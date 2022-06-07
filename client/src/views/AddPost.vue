@@ -40,6 +40,7 @@ export default {
         },
         async submitForm() {
             const formData = new FormData();
+            formData.append('idUser', localStorage.getItem("idUser"));
             formData.append('image', this.image);
             formData.append('title', this.post.title);
             formData.append('category', this.post.category);

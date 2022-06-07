@@ -73,6 +73,7 @@ export default {
 
                     const token = res.data.token;
                     this.guardarUsuario(token);
+                    localStorage.setItem("idUser", res.data.usuarioDB._id);
                     localStorage.setItem("nombre", res.data.usuarioDB.nombre);
                     localStorage.setItem("email", res.data.usuarioDB.email);
                     // this.mensaje = '';
