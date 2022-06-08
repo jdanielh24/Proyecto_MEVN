@@ -1,13 +1,13 @@
 <template>
   <div class="about">
     <v-row class="mt-5 mx-5">
-        <h1 class="blue--text"> Nuestra App</h1>
+        <h1 class="blue--text"> <b> <span class="blue--text">MIS</span><span class="black--text">HOTELES </span> </b> </h1>
     </v-row>
     <v-row class="mt-5 mx-5">
-        <h4 class="gray--text"> Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-          Asperiores ab rerum accusantium adipisci architecto. Qui enim dolores quam fugiat 
-          provident exercitationem, 
-          modi animi laborum dignissimos placeat ex ipsum ea nemo.</h4>
+        <h4 class="gray--text"> MisHoteles es una plataforma web donde los usuarios pueden
+          calificar hoteles y moteles, además de contar su experiencia para ayudar a otros usuarios
+          a encontrar un buen hotel donde hospedarse.
+        </h4>
     </v-row><br>
     <v-row class="mt-5 mx-5">
       <h2 class="blue--text"> Desarrollado por</h2>
@@ -23,7 +23,7 @@
             {{ "Juanma Alfaro" }}
           </v-card-title>
           <v-card-text class="py-0">
-            <p>{{ "HaHey" }}</p>
+            <p>{{ "jmanuel.alfaro.22@gmail.com" }}</p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -37,7 +37,7 @@
             {{ "Jesús López" }}
           </v-card-title>
           <v-card-text class="py-0">
-            <p>{{ "Un Crack" }}</p>
+            <p>{{ "jdanielopez24@gmail.com" }}</p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -51,7 +51,7 @@
             {{ "Manuel Rodríguez" }}
           </v-card-title>
           <v-card-text class="py-0">
-            <p>{{ "ese wey no trabaja y es joto, lo dejo su morrita, es un endogamico y fanfarron" }}</p>
+            <p>{{ "contacto.manuelrdzz@gmail.com" }}</p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       ruta1: "imgAbout/juanma.jpg",
-      ruta2: "imgAbout/yisus.png",
+      ruta2: "imgAbout/yisus.jpg",
       ruta3: "imgAbout/manuel.jpg",
       ruta4: "imgAbout/cr.png",
       myStyle:{

@@ -44,7 +44,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title v-text="'Cerrar sesion'"></v-list-item-title>
+            <v-list-item-title v-text="'Cerrar sesión'"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>

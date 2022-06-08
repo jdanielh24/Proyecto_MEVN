@@ -21,10 +21,10 @@
                     color="success"
                     text
                     :to="{ name: 'edit-post', params: { id: post._id } }"
-                    >Edit</v-btn
+                    >Editar</v-btn
                   >
                   <v-btn color="red" text @click="removePost(post._id)"
-                    >Delete</v-btn
+                    >Eliminar</v-btn
                   >
                 </div>
               </v-col>
@@ -206,7 +206,7 @@ export default {
         swal(
           "Formulario incompleto",
           "Asegúrate de dar una valoración e ingresar un comentario",
-          "success"
+          "warning"
         );
       }
     },

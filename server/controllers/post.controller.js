@@ -30,7 +30,7 @@ module.exports = class PostController {
         post.image = imagename;
         try {
             await Post.create(post);
-            res.status(201).json({ message: 'Post created succesfully' });
+            res.status(201).json({ message: 'El hotel ha sido agregado' });
         } catch (err) {
             res.status(400).json({ message: err.message });
         }
@@ -56,7 +56,7 @@ module.exports = class PostController {
 
         try {
             await Post.findByIdAndUpdate(id, newPost);
-            res.status(200).json({ message: 'Post updated successfully!' });
+            res.status(200).json({ message: 'Se han actualizado los cambios' });
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -75,7 +75,7 @@ module.exports = class PostController {
                     console.log(err);
                 }
             }
-            res.status(200).json({ message: 'Post deleted successfully!' });
+            res.status(200).json({ message: 'El hotel ha sido eliminado' });
         } catch (err) {
             res.status(404).json({ message: err.message });
         }

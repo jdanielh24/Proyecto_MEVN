@@ -35,7 +35,7 @@ export default new Vuex.Store({
             if(token){
             swal({
                 title: "¿Seguro que deseas cerrar sesión?",
-                text: "Una vez que finalices sesión, no podrás ver los posts.",
+                text: "Una vez que finalices sesión, no podrás ver los hoteles.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
