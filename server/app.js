@@ -29,4 +29,4 @@ app.use('/api/user/', require('./routes/user.route'));
 app.use('/api/valoracion', require('./routes/valoracion.route'));
 
 // start server
-app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+app.listen(port, () => console.log(`Server running at http://mishoteles.tech/:${port}`));

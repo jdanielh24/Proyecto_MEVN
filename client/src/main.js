@@ -12,7 +12,7 @@ Vue.use(VueAxios, axios)
 
 //Vue.component('star-rating', StarRating);
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'http://mishoteles.tech:5000/api';
 
 Vue.config.productionTip = false
 
