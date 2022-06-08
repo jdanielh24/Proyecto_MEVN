@@ -70,9 +70,9 @@
 export default {
   data() {
     return {
-      ruta1: "http://mishoteles.tech/uploads/teacher.png",
-      ruta2: "imgAbout/yisus.jpg",
-      ruta3: "imgAbout/manuel.jpg",
+      ruta1: "./uploads/teacher.png",
+      ruta2: "http://mishoteles.tech/uploads/imgAbout/yisus.jpg",
+      ruta3: "../server/uploads/teacher.png",
       ruta4: "imgAbout/cr.png",
       myStyle:{
             backgroundColor:"#EAEAEA" 
