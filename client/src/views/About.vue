@@ -15,7 +15,7 @@
     <v-row class="mt-5 mx-5">
       <v-col sm="4" class="pa-3">
           <v-card class="pa-1">
-          <v-img height="250" :src="`/${ruta1}`"></v-img>
+          <v-img height="250" :src="`${ruta1}`"></v-img>
           <v-btn class="ml-4 mt-3" small outlined color="indigo">
             {{ "Back-end Developer" }}
           </v-btn>
