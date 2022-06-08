@@ -30,7 +30,7 @@
             >
           </v-col>
 
-          <p>¿No tienes cuenta? <a href="/registrar-usuario"> Regístrate</a></p>
+          <p>¿No tienes cuenta? <a href="http://mishoteles.tech/registrar-usuario"> Regístrate</a></p>
           <facebook-login class="button"
             appId="568311768188756"
             @login="onLogin"
