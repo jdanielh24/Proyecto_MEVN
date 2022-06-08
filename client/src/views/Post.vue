@@ -201,7 +201,7 @@ export default {
 
         const resVal = await API_VALORACION.addValoracion(this.valoracion);
         this.$router.push({ name: "home" });
-        swal("Tu comentario ha sido insertado", "Revisa el post para verificar", "success");
+        swal("¡Gracias por compartir tu experiencia!", "", "success");
       } else {
         swal(
           "Formulario incompleto",
