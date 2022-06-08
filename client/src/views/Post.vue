@@ -3,7 +3,9 @@
     <v-row no-gutters>
       <v-col sm="10" class="pa-4" mx-auto>
         <v-card class="pa-2">
-         
+          <v-img  :src="`http://mishoteles.tech/uploads/${post.image}`"></v-img><br />
+           <p>sasasa</p>
+           <v-img  :src="`../server/uploads/${post.image}`"></v-img><br />
           <p>{{post.image}}</p>
           <v-row class="mt-1 mx-1"
             >&nbsp;&nbsp;&nbsp;<b class="blue--text"> Autor</b>&nbsp;
@@ -107,8 +109,6 @@
               >
             </v-card>
           </form>
-
-           <v-img  :src="`./uploads/${post.image}`"></v-img><br />
         </v-container>
       </v-col>
     </v-row>
