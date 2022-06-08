@@ -34,6 +34,16 @@ module.exports = class UserController {
         }
     }
 
+    static async getUsuarioByEmail(req, res){
+        const body = req.body;
+        try {
+            const user = await User.findOne({email: body.email});
+            res.status(200).json(user);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
     static async login(req, res, next) {
 		const body = req.body;
 
