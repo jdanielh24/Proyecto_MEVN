@@ -70,7 +70,7 @@
 export default {
   data() {
     return {
-      ruta1: "imgAbout/juanma.jpg",
+      ruta1: "http://mishoteles.tech/uploads/teacher.png",
       ruta2: "imgAbout/yisus.jpg",
       ruta3: "imgAbout/manuel.jpg",
       ruta4: "imgAbout/cr.png",
