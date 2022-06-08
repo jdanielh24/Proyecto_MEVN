@@ -10,7 +10,7 @@
                         <v-text-field label="Ciudad" v-model="post.category" prepend-icon="mdi-view-list" :rules="rules"></v-text-field>
                         <v-textarea label="Descripción" v-model="post.content" prepend-icon="mdi-note-plus" :rules="rules"></v-textarea>
                         <v-file-input @change="selectFile" show-size counter multiple label="Subir una fotografía"></v-file-input>
-                        <v-img :src="`/${post.image}`" width="120"></v-img>
+                        <v-img :src="`./uploads/${post.image}`" width="120"></v-img>
 
                         <v-btn type="submit" class="mt-3" color="success">Guardar cambios</v-btn>
                     </v-form>
